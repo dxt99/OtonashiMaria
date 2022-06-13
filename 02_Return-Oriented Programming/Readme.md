@@ -1,0 +1,2 @@
+# No 2. Return-Oriented Programming
+Direktori ini berisi writeup solusi babyrop level1.0 dan babyrop level2.0 dari https://dojo.pwn.college/ dalam `Writeup.pdf`. Selain itu, terdapat code python yang digunakan dalam membangun payload exploit pada solusi masing-masing problem, `rop1.py` untuk babyrop level1.0 dan `rop2.py` untuk babyrop level2.0.
