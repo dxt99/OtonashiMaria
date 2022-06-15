@@ -1,4 +1,4 @@
-# No 6. Citer
+# No 3. Citer
 Direktori ini berisi program memory editor, program target, dan dokumentasi mengenai memory editor tersebut.
 
 ## Cara Menjalankan
