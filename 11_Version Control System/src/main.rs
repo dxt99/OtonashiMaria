@@ -45,9 +45,9 @@ fn main(){
         } else {
             println!("Not a geet repository");
         }
-    } else if args[1] == "restore" && cnt == 2 {
+    } else if args[1] == "remove" && cnt == 2 {
         if flag{
-            add::restore().expect("Failed to commit");
+            add::remove().expect("Failed to commit");
         } else {
             println!("Not a geet repository");
         }

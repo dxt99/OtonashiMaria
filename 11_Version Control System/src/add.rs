@@ -8,7 +8,7 @@ pub fn add() -> std::io::Result<()>{
     Ok(())
 }
 
-pub fn restore()-> std::io::Result<()>{
+pub fn remove()-> std::io::Result<()>{
     let mut file = OpenOptions::new()
         .read(true)
         .write(true)
