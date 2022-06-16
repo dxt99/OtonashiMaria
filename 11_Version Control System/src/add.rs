@@ -12,6 +12,7 @@ fn traverse() -> std::io::Result<HashMap<String, String>>{
     while nodes.len()>0{
         let tarpath = nodes.pop_front().unwrap();
         if tarpath == "./.geet".to_string() {continue;}
+        if tarpath == "./target".to_string() {continue;}
         let paths = fs::read_dir(tarpath).unwrap();
         for path in paths{
             let pathtemp = path.unwrap();
@@ -56,7 +57,7 @@ pub fn add() -> std::io::Result<()>{
     //get parent map
     let mut files: HashMap<String, String> = HashMap::new();
     if head!="0"{
-        let mut commitname = "./.geet/commit/".to_string();
+        let mut commitname = "./.geet/commits/".to_string();
         commitname.push_str(&head);
         commitname.push_str(".cmt");
         let mut commitlog = fs::File::open(commitname)?;

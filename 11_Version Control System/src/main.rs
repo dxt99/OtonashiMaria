@@ -36,6 +36,7 @@ fn main(){
     } else if args[1] == "commit" && cnt == 2 {
         if flag{
             commit::commit().expect("Failed to commit");
+            add::remove().expect("Failed to remove");
         } else {
             println!("Not a geet repository");
         }
