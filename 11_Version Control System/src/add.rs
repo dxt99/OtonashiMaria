@@ -14,7 +14,7 @@ pub fn remove()-> std::io::Result<()>{
         .write(true)
         .create(true)
         .truncate(true)
-        .open("./.geet/temp.txt")
+        .open("./.geet/temp.log")
         .unwrap();
     file.write_all(b"")?;
     Ok(())
