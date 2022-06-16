@@ -2,9 +2,9 @@ use std::fs;
 use std::io::prelude::*;
 /*
 history.log
-ID PARENT
-ID PARENT
-ID PARENT
+ID PARENT datetime
+ID PARENT datetime
+ID PARENT datetime
 
 temp.log and commit/ID.cmt
 path fileID

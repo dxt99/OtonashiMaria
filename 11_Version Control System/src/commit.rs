@@ -2,6 +2,7 @@ use std::fs;
 use std::io::prelude::*;
 use std::fs::OpenOptions;
 use std::collections::HashMap;
+use chrono;
 
 pub fn commit() -> std::io::Result<()>{
     let mut headlog = fs::File::open("./.geet/head.log")?;
@@ -54,7 +55,6 @@ pub fn commit() -> std::io::Result<()>{
         let mut pathtosnap = "./.geet/snapshots/".to_string();
         pathtosnap.push_str(&name);
         pathtosnap.push_str(".snp");
-        println!("{} {}",&pathname, &pathtosnap);
         let mut source = std::fs::File::open(&pathname)?;
         let mut target = std::fs::File::create(&pathtosnap)?;
         std::io::copy(&mut source, &mut target)?;
@@ -86,6 +86,7 @@ pub fn commit() -> std::io::Result<()>{
         .open(&commitname)
         .unwrap();
     file.write_all(buf.as_bytes())?;
+
     // update head.log
     let mut buf = curhead.to_string();
     buf.push_str(" ");
@@ -98,6 +99,20 @@ pub fn commit() -> std::io::Result<()>{
         .open("./.geet/head.log")
         .unwrap();
     file.write_all(buf.as_bytes())?;
+
+    // update history.log
+    buf.push_str(" ");
+    let curtime = chrono::Utc::now().to_string();
+    buf.push_str(&curtime);
+    buf.push_str("\n");
+    let mut file = OpenOptions::new()
+        .read(true)
+        .append(true)
+        .create(true)
+        .open("./.geet/history.log")
+        .unwrap();
+    file.write_all(buf.as_bytes())?;
+
     // temp deletion done from main
     Ok(())
 }
