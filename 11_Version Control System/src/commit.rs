@@ -2,13 +2,20 @@ use std::fs;
 use std::io::prelude::*;
 
 pub fn commit() -> std::io::Result<()>{
-    let mut file = fs::File::open(".geet/history.log")?;
-    let mut history = String::new();
-    file.read_to_string(&mut history)?;
-    if history.len() == 0{
-        println!("First commit");
-    } else {
+    let mut headlog = fs::File::open("./.geet/head.log")?;
+    let mut head = String::new();
+    let mut headlogtext = String::new();
+    headlog.read_to_string(&mut headlogtext)?;
 
+    //get head and parent
+    let line = headlogtext.split(" ");
+    let mut cnt = 0;
+    for word in line{
+        if cnt == 0 {head = word.to_string();}
+        cnt+=1;
     }
+
+    println!("{}", head);
+    // reading temp
     Ok(())
 }
