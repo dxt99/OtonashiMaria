@@ -3,6 +3,7 @@ use std::fs;
 
 mod init;
 mod commit;
+mod add;
 
 fn main(){
     let args: Vec<String> = env::args().collect();
@@ -38,5 +39,19 @@ fn main(){
         } else {
             println!("Not a geet repository");
         }
+    } else if args[1] == "add" && cnt == 2 {
+        if flag{
+            add::add().expect("Failed to add changes");
+        } else {
+            println!("Not a geet repository");
+        }
+    } else if args[1] == "restore" && cnt == 2 {
+        if flag{
+            add::restore().expect("Failed to commit");
+        } else {
+            println!("Not a geet repository");
+        }
+    } else {
+        println!("Unknown command");
     }
 }
