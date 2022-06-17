@@ -5,6 +5,7 @@ mod init;
 mod commit;
 mod add;
 mod log;
+mod head;
 
 fn main(){
     let args: Vec<String> = env::args().collect();
@@ -64,6 +65,13 @@ fn main(){
         if flag{
             log::log().expect("Log corrupted");
             println!("End of log");
+        } else {
+            println!("Not a geet repository");
+        }
+    } else if args[1] == "head" && cnt == 3 {
+        if flag{
+            head::head(&args[2]).expect("Version not found");
+            println!("Head changed");
         } else {
             println!("Not a geet repository");
         }
