@@ -12,7 +12,6 @@ fn traverse() -> std::io::Result<HashMap<String, String>>{
     while nodes.len()>0{
         let tarpath = nodes.pop_front().unwrap();
         if tarpath == "./.geet".to_string() {continue;}
-        if tarpath == "./target".to_string() {continue;}   //TODO: remove this later pls
         let paths = fs::read_dir(tarpath).unwrap();
         for path in paths{
             let pathtemp = path.unwrap();
