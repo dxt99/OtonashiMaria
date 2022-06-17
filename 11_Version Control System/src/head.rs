@@ -21,12 +21,44 @@ pub fn head(head: &String) -> std::io::Result<()> {
         files.insert(vec[0].to_string(), vec[1].to_string());
     }
 
+    // delete all other tracked files
+    let mut headlog = fs::File::open("./.geet/head.log")?;
+    let mut oldhead = String::new();
+    let mut headlogtext = String::new();
+    headlog.read_to_string(&mut headlogtext)?;
+
+    //  get head
+    let line = headlogtext.split(" ");
+    let mut cnt = 0;
+    for word in line{
+        if cnt == 0 {oldhead = word.to_string();}
+        cnt+=1;
+    }
+    //  read commit
+    let mut commitname = "./.geet/commits/".to_string();
+    commitname.push_str(&oldhead);
+    commitname.push_str(".cmt");
+    let mut commit = fs::File::open(&commitname)?;
+    let mut committext = String::new();
+    commit.read_to_string(&mut committext)?;
+
+    //  delete from old commit
+    let lines = committext.split("\n");
+    for line in lines{
+        let vec :Vec<&str> = line.split(" ").collect();
+        if vec.len()<2 {continue;}
+        if std::path::Path::new(&vec[0]).exists() {fs::remove_file(&vec[0])?;}
+    }
+
     // implement commit
     for (path, snap) in files{
         let mut pathsnap = "./.geet/snapshots/".to_string();
         pathsnap.push_str(&snap);
         pathsnap.push_str(".snp");
 
+        let pathtar = std::path::Path::new(&path);
+        let prefix = pathtar.parent().unwrap();
+        std::fs::create_dir_all(prefix).unwrap();
         let mut target = OpenOptions::new()
             .read(true)
             .write(true)
