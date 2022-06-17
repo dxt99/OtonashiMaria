@@ -27,5 +27,6 @@ pub fn init() -> std::io::Result<()>{
     fs::File::create("./.geet/temp.log")?;
     let mut file = fs::File::create("./.geet/head.log")?;
     file.write_all(b"0 0")?;
+    println!("Repository initialized");
     Ok(())
 }

@@ -1,7 +1,7 @@
 use std::collections::{HashMap, LinkedList};
 use std::fs;
 use std::fs::OpenOptions;
-use std::io::prelude::*;
+use std::io::{prelude::*, BufReader};
 
 // traverses directory (bfs) and returns every non geet file
 fn traverse() -> std::io::Result<HashMap<String, String>>{
@@ -27,16 +27,22 @@ fn traverse() -> std::io::Result<HashMap<String, String>>{
 }
 
 fn issamefile(patha: &String, pathb: &String) ->  std::io::Result<bool>{
-    let mut a = fs::File::open(patha)?;
-    let mut b = fs::File::open(pathb)?;
-    let mut astring: Vec<u8> = Vec::new();
-    let mut bstring: Vec<u8> = Vec::new();
-    a.read_to_end(&mut astring)?;
-    b.read_to_end(&mut bstring)?;
-    let diff = astring.iter().zip(&bstring).filter(|&(a, b)| a != b).count();
-    let mut flag = false;
-    if diff == 0 {flag = true};
-    Ok(flag)
+    let a = fs::File::open(patha)?;
+    let b = fs::File::open(pathb)?;
+    
+    if a.metadata().unwrap().len() != b.metadata().unwrap().len() {
+        return Ok(false);
+    }
+
+    let abuf= BufReader::new(a);
+    let bbuf = BufReader::new(b);
+
+    for (b1, b2) in abuf.bytes().zip(bbuf.bytes()) {
+        if b1.unwrap() != b2.unwrap() {
+            return Ok(false);
+        }
+    }
+    Ok(true)
 }
 
 // maps every file in the directory to a number
@@ -111,6 +117,8 @@ pub fn add() -> std::io::Result<()>{
         buffer.push_str("\n");
     }
     temp.write_all(buffer.as_bytes())?;
+
+    println!("Changes staged");
     Ok(())
 }
 
@@ -123,5 +131,6 @@ pub fn remove()-> std::io::Result<()>{
         .open("./.geet/temp.log")
         .unwrap();
     file.write_all(b"")?;
+
     Ok(())
 }

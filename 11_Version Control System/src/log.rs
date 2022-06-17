@@ -28,5 +28,6 @@ pub fn log() -> std::io::Result<()>{
         }
     }
 
+    println!("End of log");
     Ok(())
 }

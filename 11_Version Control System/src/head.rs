@@ -27,8 +27,14 @@ pub fn head(head: &String) -> std::io::Result<()> {
         pathsnap.push_str(&snap);
         pathsnap.push_str(".snp");
 
-        let mut target = std::fs::File::open(&path)?;
-        let mut source = std::fs::File::create(&pathsnap)?;
+        let mut target = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .truncate(true)
+            .open(&path)
+            .unwrap();
+        let mut source = std::fs::File::open(&pathsnap)?;
         std::io::copy(&mut source, &mut target)?;
     }
 
@@ -61,6 +67,6 @@ pub fn head(head: &String) -> std::io::Result<()> {
         .unwrap();
     file.write_all(buf.as_bytes())?;
 
-    
+    println!("Head changed");
     Ok(())
 }

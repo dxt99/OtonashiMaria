@@ -32,7 +32,6 @@ fn main(){
     if args[1] == "init" && cnt == 2 {
         if !flag{
             init::init().expect("Failed to create geet repository");
-            println!("Repository initialized");
         } else {
             println!("Geet repository already initialized");
         }
@@ -43,14 +42,12 @@ fn main(){
         if flag{
             commit::commit(&newmsg).expect("Failed to commit");
             add::remove().expect("Failed to remove staged changes");
-            println!("Commit successful");
         } else {
             println!("Not a geet repository");
         }
     } else if args[1] == "add" && cnt == 2 {
         if flag{
             add::add().expect("Failed to stage changes");
-            println!("Changes staged");
         } else {
             println!("Not a geet repository");
         }
@@ -64,14 +61,12 @@ fn main(){
     } else if args[1] == "log" && cnt == 2 {
         if flag{
             log::log().expect("Log corrupted");
-            println!("End of log");
         } else {
             println!("Not a geet repository");
         }
     } else if args[1] == "head" && cnt == 3 {
         if flag{
             head::head(&args[2]).expect("Version not found");
-            println!("Head changed");
         } else {
             println!("Not a geet repository");
         }

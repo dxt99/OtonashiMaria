@@ -128,5 +128,6 @@ pub fn commit(msg: &String) -> std::io::Result<()>{
     file.write_all(buf.as_bytes())?;
 
     // temp deletion done from main
+    println!("Commit successful");
     Ok(())
 }
