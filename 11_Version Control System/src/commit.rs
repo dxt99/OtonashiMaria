@@ -4,7 +4,7 @@ use std::fs::OpenOptions;
 use std::collections::HashMap;
 use chrono;
 
-pub fn commit() -> std::io::Result<()>{
+pub fn commit(msg: &String) -> std::io::Result<()>{
     let mut headlog = fs::File::open("./.geet/head.log")?;
     let mut head = String::new();
     let mut headlogtext = String::new();
@@ -102,7 +102,9 @@ pub fn commit() -> std::io::Result<()>{
 
     // update history.log
     buf.push_str(" ");
-    let curtime = chrono::Utc::now().to_string();
+    buf.push_str(&msg);
+    buf.push_str(" ");
+    let curtime = chrono::Utc::now().to_string().replace(" ","%20%");
     buf.push_str(&curtime);
     buf.push_str("\n");
     let mut file = OpenOptions::new()

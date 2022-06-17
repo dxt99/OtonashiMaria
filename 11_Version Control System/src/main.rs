@@ -4,6 +4,7 @@ use std::fs;
 mod init;
 mod commit;
 mod add;
+mod log;
 
 fn main(){
     let args: Vec<String> = env::args().collect();
@@ -33,9 +34,12 @@ fn main(){
         } else {
             println!("Geet repository already initialized");
         }
-    } else if args[1] == "commit" && cnt == 2 {
+    } else if args[1] == "commit" && cnt <= 3 {
+        let mut msg = "No commit msg".to_string();
+        if cnt == 3 {msg = args[2].clone();}
+        let newmsg = msg.replace(" ", "%20%");
         if flag{
-            commit::commit().expect("Failed to commit");
+            commit::commit(&newmsg).expect("Failed to commit");
             add::remove().expect("Failed to remove");
         } else {
             println!("Not a geet repository");
@@ -48,7 +52,13 @@ fn main(){
         }
     } else if args[1] == "remove" && cnt == 2 {
         if flag{
-            add::remove().expect("Failed to commit");
+            add::remove().expect("Failed to remove changes");
+        } else {
+            println!("Not a geet repository");
+        }
+    } else if args[1] == "log" && cnt == 2 {
+        if flag{
+            log::log().expect("Log corrupted");
         } else {
             println!("Not a geet repository");
         }
