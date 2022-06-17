@@ -22,7 +22,12 @@ pub fn commit(msg: &String) -> std::io::Result<()>{
     let mut templog = fs::File::open("./.geet/temp.log")?;
     let mut templogtext = String::new();
     templog.read_to_string(&mut templogtext)?;
-    
+
+    if templogtext.len()==0 {
+        println!("No changes staged (run 'geet add' before commiting)");
+        return Ok(());
+    }
+
     let mut files: HashMap<String, String> = HashMap::new();
     let lines = templogtext.split("\n");
     for line in lines{
@@ -44,11 +49,13 @@ pub fn commit(msg: &String) -> std::io::Result<()>{
     // get snapshot count
     let paths = fs::read_dir("./.geet/snapshots").unwrap();
     let mut cur = paths.count();
+    let mut diff = false;
 
     // process files, create snapshots
     let mut newfiles: HashMap<String, String> = files.clone();
     for (pathname, snapshot) in files{
         if snapshot != "new" {continue;}
+        diff = true;
         cur += 1;
         let name = cur.to_string();
         // copy file
@@ -60,6 +67,11 @@ pub fn commit(msg: &String) -> std::io::Result<()>{
         std::io::copy(&mut source, &mut target)?;
         // update map
         *newfiles.get_mut(&pathname).unwrap() = name;
+    }
+
+    if !diff {
+        println!("No changes found");
+        return Ok(());
     }
 
     // get commit count
