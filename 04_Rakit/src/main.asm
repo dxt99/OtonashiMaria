@@ -22,7 +22,7 @@ isPrime:
     push    rbp
     mov     rbp, rsp
     sub     rsp, 32
-
+    
     cmp     rcx, 1
     je      .no
 
@@ -80,4 +80,4 @@ main:
 .print:
     call    printf
     xor     rax, rax
-    ret
+    call    ExitProcess
