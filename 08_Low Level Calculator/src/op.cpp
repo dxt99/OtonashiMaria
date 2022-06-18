@@ -1,8 +1,10 @@
-int add(int a, int b){ //returns a+b
-	if(b==0) return a;
+int add(int a, int b){ 
+	addloop:
 	int carry = a&b;
 	a = a^b;
-	return add(a, carry<<1);
+	b = carry<<1;
+	if(b!=0) goto addloop;
+	return a;
 }
 
 int subtract(int a, int b){ //returns a-b
@@ -18,25 +20,30 @@ int abs(int x){ //returns abs(x)
 }
 
 int multiply(int a, int b){ //returns a*b
-	int sign = (a & 1<<31) ^ (b&1<<31);
-	a = abs(a); b = abs(b);
-	if(b==1)return a;
 	int ret = 0;
-	if(b&1)ret=a;
-	int temp = add(ret,multiply(a<<1, b>>1));
+	int sign = (a&1<<31) ^ (b&1<<31);
+	a = abs(a); b = abs(b);
+	multiplyloop:
+	if(b&1)ret = add(a,ret);
+	a<<=1;
+	b>>=1;
+	if(b!=0)goto multiplyloop;
 	if(sign){
-		temp = ~temp;
-		return(add(1,temp));
+		ret = ~ret;
+		return(add(1,ret));
 	}
-	return temp;
+	return ret;
 }
 
 
 int divide(int a, int b){ //returns a/b
 	int sign = (a & 1<<31) ^ (b&1<<31);
 	a = abs(a); b = abs(b);
-	if(a<b) return 0;
-	int ret = (1+(divide(subtract(a,b), b)));
+	int ret = 0;
+	divideloop:
+	ret = add(ret, 1);
+	a = subtract(a,b);
+	if(a>=b) goto divideloop;
 	if(sign){
 		ret = ~ret;
 		return(add(1,ret));
@@ -46,10 +53,13 @@ int divide(int a, int b){ //returns a/b
 
 int power(int a, int b){ //returns a^b
 	if(b<0)return 0;
-	if(b==1) return a;
-	int ret=1;
-	if(b&1)ret=a;
-	return multiply(power(multiply(a,a), b>>1),ret);
+	int ret = 1;
+	powerloop:
+	if(b&1)ret=multiply(ret, a);
+	a = multiply(a,a);
+	b >>= 1; 
+	if(b!=0) goto powerloop;
+	return ret;
 }
 
 float invsqrt(float number){ //returns 1/(sqrt(a)), quake 3 alg

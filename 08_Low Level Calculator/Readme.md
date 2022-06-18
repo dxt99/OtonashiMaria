@@ -8,7 +8,7 @@ Pada direktori ini, jalankan `make build` untuk membuat executable, dan `make ru
 Kalkulator memiliki dua mode, yaitu evaluasi ekspresi aritmetika dan evaluasi nilai inverse square root. 
 
 - Ekspresi Aritmetika
-Evaluasi ekspresi aritmetika dapat menerima satu baris ekspresi dengan operator tambah(+), kurang(-), kali(*), bagi(/), pangkat(^). Operand adalah signed integer 32-bit, dan semua operasi juga memiliki hasil signed integer 32-bit. Operator dan operand harus dipisah oleh spasi, dan akan dievaluasi dari kiri ke kanan. Berikut contoh ekspresi yang benar:
+Evaluasi ekspresi aritmetika dapat menerima satu baris ekspresi dengan operator tambah(+), kurang(-), kali(\*), bagi(/), pangkat(^). Operand adalah signed integer 32-bit, dan semua operasi juga memiliki hasil signed integer 32-bit. Operator dan operand __harus dipisah oleh spasi__, dan akan dievaluasi dari kiri ke kanan. Berikut contoh ekspresi yang benar:
 `
 1 + 2 * 3 / 2 - -5 ^ 2
 `
