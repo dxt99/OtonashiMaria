@@ -1,0 +1,2 @@
+# No 14. Distributed System
+Direktori ini berisi link **private repository** hasil implementasi lab distributed system dari [dslabs](https://github.com/emichael/dslabs). Hasil implementasi dapat diakses pada [link ini](https://github.com/dxt99/dslabs/tree/handout) pada branch handout. Lab yang sudah diimplementasikan hanya Lab 1: Exactly Once RPC Protocol.
