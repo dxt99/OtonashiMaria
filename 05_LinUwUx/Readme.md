@@ -1,0 +1,2 @@
+# No 5. LiUwUx
+Direktori ini berisi link video demonstrasi boot Gentoo. Gentoo diinstall di VirtualBox menggunakan LiveGUI USB Image (2022-06-05) untuk membuat partisi boot, swapspace, filesystem, dan root. LiveGUI juga digunakan untuk mengcompile kernel dari Stage 3 OpenRC (2022-06-24) menggunakan genkernel. OS Gentoo yang diinstall menggunakan DHCP client dhcpcd, dan Plasma Desktop dengan display manager lightdm. Video boot dapat diakses pada [link ini](https://drive.google.com/file/d/1VPOnYKo3qJrBraIYDT_qExqRNNqDpCqE/view?usp=sharing).
