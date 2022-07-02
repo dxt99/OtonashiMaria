@@ -60,3 +60,15 @@ func printGame() {
 		fmt.Println()
 	}
 }
+
+// checks if board is full
+func isFull() bool {
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if game[i][j] == -1 {
+				return false
+			}
+		}
+	}
+	return true
+}
