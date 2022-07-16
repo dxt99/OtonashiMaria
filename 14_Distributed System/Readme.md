@@ -1,2 +1,2 @@
 # No 14. Distributed System
-Direktori ini berisi link **private repository** hasil implementasi lab distributed system dari [dslabs](https://github.com/emichael/dslabs). Hasil implementasi dapat diakses pada [link ini](https://github.com/dxt99/dslabs/tree/handout) pada branch handout. Lab yang sudah diimplementasikan adalah Lab 1, 2, dan 3.
+Direktori ini berisi link **private repository** hasil implementasi lab distributed system dari [dslabs](https://github.com/emichael/dslabs). Hasil implementasi dapat diakses pada [link ini](https://github.com/dxt99/dslabs/tree/handout) pada branch handout. Semua lab sudah diimplementasikan.
